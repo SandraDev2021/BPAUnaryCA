@@ -1,0 +1,70 @@
+syntax = "proto3";// syntax
+
+//option java_package = "grpcBPA";// your package
+option java_multiple_files = true;//default - must have
+//option java_outer_classname = "BPAUnaryImpl";//outer class implementation 
+
+/*
+FOR UNARY, WE ALWAYS DEFINE THIS STRUCTURE:
+message GreetRequest{
+Greeting greeting = 1;
+}
+message GreetResponse{
+string result = 1;
+}
+
+service GreetService{
+rpc Greet(GreetRequest) returns(GreetResponse){};
+}
+
+*/
+
+service CustomerSupport{//new service
+// HERE, WE HAVE TO INCLUDE ONLY ONE SERVICE.
+// IT'S ASKED TO DEVELOP ONE PROTO.FILE FOR EACH SERVICE.
+//HERE, THERE ARE UNARY AND SERVER STREAMING INVOCATION
+
+	//rpc's inside CustomerSupport
+	//first service of the project : Customer Support
+	rpc GetCustomerSupport(SupportRequest) returns(SupportResponse){};//UNARY INVOCATION
+	//for each service, there'll be a Request and a Response.
+	//Use Request and Response words to identify which is which
+	
+	rpc GetCustomerSupport1(SupportRequest1) returns(stream SupportResponse1){};//SERVER STREAMING INVOCATION OF THE SAME SERVICE
+
+	
+}// end of service CustomerSupport
+
+
+
+message SupportRequest{
+//unary - one single request
+
+//it's the same which is within the brackets in rpc
+
+	string payment= 1;
+	
+	
+}// end of message SupportRequest	
+
+message SupportResponse{
+//unary - one single response
+	
+	string cardPay = 1;
+	
+}// end of message SupportResponse
+
+message SupportRequest1{
+// server streaming - one request
+	string available_day= 1;
+	
+}//end of SupportRequest1
+message SupportResponse1{
+// server streaming - many responses at one time
+	string course_start_June_14 = 1;
+	string course_start_June_28 = 2;
+	string course_start_August_16 = 3;
+	
+}//end of SupportResponse1
+//END OF PROTO FOR UNARY & SERVER STREAMING.
+
